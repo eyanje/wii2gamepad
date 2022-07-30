@@ -8,7 +8,8 @@ OBJS=$(addsuffix .o, $(basename $(SOURCES)))
 EXEC=wii2gamepad
 
 CFLAGS += \
-	-I /usr/include/libevdev-1.0
+	-I /usr/include/libevdev-1.0 \
+	-g
 
 LDFLAGS = \
 	-L /usr/local/lib \

@@ -14,6 +14,12 @@ struct map_data {
     int reversed; // bool
 };
 
+struct controller_data {
+    char *name;
+    int vendor;
+    int product;
+};
+
 ssize_t read_config(const char *path);
 
 #endif // __W2G_CONFIG_H

@@ -15,17 +15,22 @@
 
 #include "config.h"
 
-#define ABSMAX 120
+#define ABSMAX 98
 #define SUPPORTED_IFACES (XWII_IFACE_CORE | XWII_IFACE_NUNCHUK | XWII_IFACE_CLASSIC_CONTROLLER)
 #define DEFAULT_KEYMAP_PATH "default.cfg"
 
 int max_retries = 3;
 
 struct xwii_iface *iface;
+
 struct map_data keymap_core[XWII_KEY_NUM],
     keymap_nunchuk[XWII_KEY_NUM],
     keymap_classic[XWII_KEY_NUM];
 struct map_data *keymap;
+struct controller_data controller_core,
+	controller_nunchuk,
+	controller_classic;
+struct controller_data *controller_data;
 
 struct libevdev_uinput *uinput_dev;
 
@@ -132,9 +137,9 @@ static void init_evdev() {
     absinfo.flat = 4;
     absinfo.resolution = 1;
     // Set product id
-    libevdev_set_name(evdev, "Microsoft X-Box 360 pad");
-    libevdev_set_id_vendor(evdev, 0x045e);
-    libevdev_set_id_product(evdev, 0x028f); // 0x028e
+    libevdev_set_name(evdev, controller_data->name);
+    libevdev_set_id_vendor(evdev, controller_data->vendor);
+    libevdev_set_id_product(evdev, controller_data->product);
     // Enable axis events
     libevdev_enable_event_type(evdev, EV_ABS);
     libevdev_enable_event_code(evdev, EV_ABS, ABS_X, &absinfo);
@@ -192,10 +197,13 @@ void load_keymap() {
 
     if (opened_ifaces & XWII_IFACE_CLASSIC_CONTROLLER) {
         keymap = keymap_classic;
+        controller_data = &controller_classic;
     } else if (opened_ifaces & XWII_IFACE_NUNCHUK) {
         keymap = keymap_nunchuk;
+        controller_data = &controller_nunchuk;
     } else {
         keymap = keymap_core;
+        controller_data = &controller_core;
     }
 
     // Reload evdev device
