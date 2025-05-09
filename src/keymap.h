@@ -2,37 +2,37 @@
 #define __W2G_KEYMAP_H
 
 static struct wii_key_map_entry {
-    const char *key;
-    enum xwii_event_keys value;
+	const char *key;
+	enum xwii_event_keys value;
 } wii_key_map[] = {
-    { "KEY_LEFT", XWII_KEY_LEFT },
-    { "KEY_RIGHT", XWII_KEY_RIGHT },
-    { "KEY_UP", XWII_KEY_UP },
-    { "KEY_DOWN", XWII_KEY_DOWN },
-    { "KEY_A", XWII_KEY_A },
-    { "KEY_B", XWII_KEY_B },
-    { "KEY_PLUS", XWII_KEY_PLUS },
-    { "KEY_MINUS", XWII_KEY_MINUS },
-    { "KEY_HOME", XWII_KEY_HOME },
-    { "KEY_ONE", XWII_KEY_ONE },
-    { "KEY_TWO", XWII_KEY_TWO },
-    { "KEY_X", XWII_KEY_X },
-    { "KEY_Y", XWII_KEY_Y },
-    { "KEY_TL", XWII_KEY_TL },
-    { "KEY_TR", XWII_KEY_TR },
-    { "KEY_ZL", XWII_KEY_ZL },
-    { "KEY_ZR", XWII_KEY_ZR },
-    { "KEY_THUMBL", XWII_KEY_THUMBL },
-    { "KEY_THUMBR", XWII_KEY_THUMBR },
-    { "KEY_C", XWII_KEY_C },
-    { "KEY_Z", XWII_KEY_Z },
-    { "KEY_STRUM_BAR_UP", XWII_KEY_STRUM_BAR_UP },
-    { "KEY_STRUM_BAR_DOWN", XWII_KEY_STRUM_BAR_DOWN },
-    { "KEY_FRET_FAR_UP", XWII_KEY_FRET_FAR_UP },
-    { "KEY_FRET_UP", XWII_KEY_FRET_UP },
-    { "KEY_FRET_MID", XWII_KEY_FRET_MID },
-    { "KEY_FRET_LOW", XWII_KEY_FRET_LOW },
-    { "KEY_FRET_FAR_LOW", XWII_KEY_FRET_FAR_LOW }
+	{ "KEY_LEFT", XWII_KEY_LEFT },
+	{ "KEY_RIGHT", XWII_KEY_RIGHT },
+	{ "KEY_UP", XWII_KEY_UP },
+	{ "KEY_DOWN", XWII_KEY_DOWN },
+	{ "KEY_A", XWII_KEY_A },
+	{ "KEY_B", XWII_KEY_B },
+	{ "KEY_PLUS", XWII_KEY_PLUS },
+	{ "KEY_MINUS", XWII_KEY_MINUS },
+	{ "KEY_HOME", XWII_KEY_HOME },
+	{ "KEY_ONE", XWII_KEY_ONE },
+	{ "KEY_TWO", XWII_KEY_TWO },
+	{ "KEY_X", XWII_KEY_X },
+	{ "KEY_Y", XWII_KEY_Y },
+	{ "KEY_TL", XWII_KEY_TL },
+	{ "KEY_TR", XWII_KEY_TR },
+	{ "KEY_ZL", XWII_KEY_ZL },
+	{ "KEY_ZR", XWII_KEY_ZR },
+	{ "KEY_THUMBL", XWII_KEY_THUMBL },
+	{ "KEY_THUMBR", XWII_KEY_THUMBR },
+	{ "KEY_C", XWII_KEY_C },
+	{ "KEY_Z", XWII_KEY_Z },
+	{ "KEY_STRUM_BAR_UP", XWII_KEY_STRUM_BAR_UP },
+	{ "KEY_STRUM_BAR_DOWN", XWII_KEY_STRUM_BAR_DOWN },
+	{ "KEY_FRET_FAR_UP", XWII_KEY_FRET_FAR_UP },
+	{ "KEY_FRET_UP", XWII_KEY_FRET_UP },
+	{ "KEY_FRET_MID", XWII_KEY_FRET_MID },
+	{ "KEY_FRET_LOW", XWII_KEY_FRET_LOW },
+	{ "KEY_FRET_FAR_LOW", XWII_KEY_FRET_FAR_LOW }
 };
 
 

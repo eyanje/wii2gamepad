@@ -16,8 +16,8 @@
 #include "util.h"
 
 extern struct map_data keymap_core[XWII_KEY_NUM],
-    keymap_nunchuk[XWII_KEY_NUM],
-    keymap_classic[XWII_KEY_NUM];
+	keymap_nunchuk[XWII_KEY_NUM],
+	keymap_classic[XWII_KEY_NUM];
 struct map_data keymap_all[XWII_KEY_NUM];
 extern struct controller_data controller_core,
 	controller_nunchuk,
@@ -27,16 +27,16 @@ struct controller_data controller_all;
 static int ext;
 
 static inline int is_whitespace(char c) {
-    return ' ' == c || '\t' == c;
+	return ' ' == c || '\t' == c;
 }
 static inline int is_alphanum(char c) {
-    return ('A' <= c && 'Z' >= c) || ('0' <= c && '9' >= c) || '_' == c;
+	return ('A' <= c && 'Z' >= c) || ('0' <= c && '9' >= c) || '_' == c;
 }
 
 enum read_state {
-    RS_INIT,
-    RS_NORMAL,
-    RS_COMMENT,
+	RS_INIT,
+	RS_NORMAL,
+	RS_COMMENT,
 };
 
 static void fnputs(FILE *stream, const char *s, size_t len) {
@@ -111,13 +111,13 @@ static int read_controller_info(const char *left_token, size_t left_token_len, c
  * Convert the given Wiimote button into a keycode
  */
 enum xwii_event_keys get_wii_key(const char *c, size_t len) {
-    int i;
-    for (i = 0; i < XWII_KEY_NUM; ++i) {
-        if (strmatch(wii_key_map[i].key, c, len)) {
-            return wii_key_map[i].value;
-        }
-    }
-    return -1;
+	int i;
+	for (i = 0; i < XWII_KEY_NUM; ++i) {
+		if (strmatch(wii_key_map[i].key, c, len)) {
+			return wii_key_map[i].value;
+		}
+	}
+	return -1;
 }
 
 /*
@@ -125,62 +125,62 @@ enum xwii_event_keys get_wii_key(const char *c, size_t len) {
  * absolute axis. Save this data to out.
  */
 static int get_map_key(const char *c, size_t len, struct map_data *out) {
-    int i;
-    for (i = 0; map_key_map[i].key; ++i) {
-        if (strmatch(map_key_map[i].key, c, len)) {
-            out->intype = IN_TYPE_KEY_OR_BTN;
-            out->input = map_key_map[i].value;
-            return 0;
-        }
-    }
-    for (i = 0; map_rel_map[i].key; ++i) {
-        if (strmatch(map_rel_map[i].key, c, len)) {
-            out->intype = IN_TYPE_REL;
-            out->input = map_rel_map[i].value;
-            return 0;
-        }
-    }
-    for (i = 0; map_abs_map[i].key; ++i) {
-        if (strmatch(map_abs_map[i].key, c, len)) {
-            out->intype = IN_TYPE_ABS;
-            out->input = map_abs_map[i].value;
-            return 0;
-        }
-    }
+	int i;
+	for (i = 0; map_key_map[i].key; ++i) {
+		if (strmatch(map_key_map[i].key, c, len)) {
+			out->intype = IN_TYPE_KEY_OR_BTN;
+			out->input = map_key_map[i].value;
+			return 0;
+		}
+	}
+	for (i = 0; map_rel_map[i].key; ++i) {
+		if (strmatch(map_rel_map[i].key, c, len)) {
+			out->intype = IN_TYPE_REL;
+			out->input = map_rel_map[i].value;
+			return 0;
+		}
+	}
+	for (i = 0; map_abs_map[i].key; ++i) {
+		if (strmatch(map_abs_map[i].key, c, len)) {
+			out->intype = IN_TYPE_ABS;
+			out->input = map_abs_map[i].value;
+			return 0;
+		}
+	}
 	fprintf(stderr, "Key ");
 	fnputs(stderr, c, len);
 	fprintf(stderr, " not understood\n", c);
-    return -1;
+	return -1;
 }
 
 static int store_key(enum xwii_iface_type ext, enum xwii_event_keys wii_key, struct map_data *mdata) {
-    struct map_data *map;
-    if (XWII_IFACE_CORE == ext) {
-        map = keymap_core;
-    } else if (XWII_IFACE_NUNCHUK == ext) {
-        map = keymap_nunchuk;
-    } else if (XWII_IFACE_CLASSIC_CONTROLLER == ext) {
-        map = keymap_classic;
-    } else if (-1 == ext) {
-        map = keymap_all;
-    } else {
+	struct map_data *map;
+	if (XWII_IFACE_CORE == ext) {
+		map = keymap_core;
+	} else if (XWII_IFACE_NUNCHUK == ext) {
+		map = keymap_nunchuk;
+	} else if (XWII_IFACE_CLASSIC_CONTROLLER == ext) {
+		map = keymap_classic;
+	} else if (-1 == ext) {
+		map = keymap_all;
+	} else {
 		fprintf(stderr, "Internal error, ext not recognized\n");
-        return -1;
-    }
+		return -1;
+	}
 
-    // Check for previous entry
-    if (map[(long) wii_key].intype) {
+	// Check for previous entry
+	if (map[(long) wii_key].intype) {
 		fprintf(stderr, "Duplicate entry\n");
-        return -1;
-    }
+		return -1;
+	}
 
-    memcpy(map + wii_key, mdata, sizeof(struct map_data));
-    return 0;
+	memcpy(map + wii_key, mdata, sizeof(struct map_data));
+	return 0;
 }
 
 static int read_mapped_key(const char *left_token, size_t left_token_len,
 		const char *right_token, size_t right_token_len) {
-    int wii_key;
+	int wii_key;
 	struct map_data mdata;
 	int err;
 
@@ -210,12 +210,10 @@ static int read_mapped_key(const char *left_token, size_t left_token_len,
 static int interpret_line(const char *left_token, size_t left_token_len,
 		const char *right_token, size_t right_token_len) {
 	int err;
-	if (!(err = read_controller_info(left_token, left_token_len, right_token,
-			right_token_len))) {
+	if (!(err = read_controller_info(left_token, left_token_len, right_token, right_token_len))) {
 		return 0;
 	}
-	if (1 == err && 0 == read_mapped_key(left_token, left_token_len, right_token,
-			right_token_len)) {
+	if (1 == err && 0 == read_mapped_key(left_token, left_token_len, right_token, right_token_len)) {
 		return 0;
 	}
 	return -1;	
@@ -225,68 +223,68 @@ static int interpret_line(const char *left_token, size_t left_token_len,
  * Returns 0 on success or a positive line number on error.
  */
 static ssize_t parse_config(char *file, size_t filelen) {
-    const char *c = file, *c2;
-    size_t line = 1;
+	const char *c = file, *c2;
+	size_t line = 1;
 	const char *left_token, *right_token, *label;
 	size_t left_token_len, right_token_len, label_len;
-    enum read_state state = RS_INIT;
+	enum read_state state = RS_INIT;
 	const char *equals, *line_end;
-    int err;
+	int err;
 
-    
-    while (c < file + filelen) {
-        // Skip whitespace
-        while (c < file + filelen && (is_whitespace(*c) || '\n' == *c)) {
-            if ('\n' == *c)
-                ++line;
-            ++c;
-        }
-        if (c == file + filelen)
-            return 0;
+	
+	while (c < file + filelen) {
+		// Skip whitespace
+		while (c < file + filelen && (is_whitespace(*c) || '\n' == *c)) {
+			if ('\n' == *c)
+				++line;
+			++c;
+		}
+		if (c == file + filelen)
+			return 0;
 
-        if (*c == ';') {
-            state = RS_COMMENT;
-        }
+		if (*c == ';') {
+		 state = RS_COMMENT;
+		}
 
-        switch (state) {
-        case RS_INIT:
-            // Read a section label
-            if ('[' != *c)
-                return line;
+		switch (state) {
+		case RS_INIT:
+			// Read a section label
+			if ('[' != *c)
+				return line;
 
-            state = RS_NORMAL;
-            // No break
-        case RS_NORMAL:
-            // Read label
-            if ('[' == *c) {
-                ++c;
+			state = RS_NORMAL;
+			// No break
+		case RS_NORMAL:
+			// Read label
+			if ('[' == *c) {
+				++c;
 				label = c;
-                while (']' != *c) {
-                    if (*c == '\n' || ';' == *c) {
+				while (']' != *c) {
+					if (*c == '\n' || ';' == *c) {
 						fprintf(stderr, "] expected\n");
-                        return line;
+						return line;
 					}
-                    ++c;
-                }
-                assert (']' == *c);
+					++c;
+				}
+				assert (']' == *c);
 				label_len = c - label;
 
 				if (interpret_label(label, label_len)) {
 					return line;
 				}
-                ++c;
-            } else {
-                // Read regular line
+				++c;
+			} else {
+				// Read regular line
 				left_token = c;
 
 				// Find equals sign
-                while ('=' != *c) {
+				while ('=' != *c) {
 					if ('\n' == *c) {
 						fprintf(stderr, "= expected\n");
 						return line;
 					}
-                    ++c;
-                }
+					++c;
+				}
 				equals = c;
 
 				// Find the end of the string
@@ -302,12 +300,12 @@ static ssize_t parse_config(char *file, size_t filelen) {
 					}
 				}
 				
-                // Find next token
+				// Find next token
 				right_token = c;
 				// Find the end of the line
-                while ('\n' != *c && ';' != *c) {
-                    ++c;
-                }
+				while ('\n' != *c && ';' != *c) {
+					++c;
+				}
 				line_end = c;
 				// Denote the end of the string
 				--c;
@@ -325,32 +323,32 @@ static ssize_t parse_config(char *file, size_t filelen) {
 					printf("Failed to interpret line\n");
 					return line;
 				}
-            }
+			}
 
-            break;
+			break;
 
-        case RS_COMMENT:
-            assert(*c == ';');
-            while ('\n' != *c)
-                ++c;
-            if (ext) {
-                state = RS_NORMAL;
-            } else {
-                state = RS_INIT;
-            }
-            break;
-        } // switch
+		case RS_COMMENT:
+			assert(*c == ';');
+			while ('\n' != *c)
+				++c;
+			if (ext) {
+				state = RS_NORMAL;
+			} else {
+				state = RS_INIT;
+			}
+			break;
+		} // switch
 
-        // No other tokens allowed
-        if ('\0' != *c && '\n' != *c && ';' != *c) {
+		// No other tokens allowed
+		if ('\0' != *c && '\n' != *c && ';' != *c) {
 			fprintf(stderr, "Extra token\n");
-            return line;
-        }
-    } // while
+			return line;
+		}
+	} // while
 
 
 
-    return 0;
+	return 0;
 }
 
 static void replace_if_zero(void *dest, void *src, size_t size) {
@@ -390,26 +388,26 @@ static int set_defaults() {
 }
 
 ssize_t read_config(const char *path) {
-    int fd = open(path, O_RDONLY);
-    if (-1 == fd)
-        return errno;
-    
+	int fd = open(path, O_RDONLY);
+	if (-1 == fd)
+		return errno;
+	
 
-    struct stat statbuf;
-    fstat(fd, &statbuf);
-    size_t filelen = statbuf.st_size;
-    
-    // Map entire file (dangerous?)
-    char * const file = mmap(NULL, filelen, PROT_READ, MAP_PRIVATE, fd, 0);
+	struct stat statbuf;
+	fstat(fd, &statbuf);
+	size_t filelen = statbuf.st_size;
+	
+	// Map entire file (dangerous?)
+	char * const file = mmap(NULL, filelen, PROT_READ, MAP_PRIVATE, fd, 0);
 
-    ssize_t ret = parse_config(file, filelen);
+	ssize_t ret = parse_config(file, filelen);
 
-    if (-1 == munmap(file, filelen))
-        return -errno;
-    if (-1 == close(fd))
-        return -errno;
+	if (-1 == munmap(file, filelen))
+		return -errno;
+	if (-1 == close(fd))
+		return -errno;
 
 	set_defaults();
 
-    return ret;
+	return ret;
 }

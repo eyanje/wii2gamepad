@@ -2,22 +2,22 @@
 #define __W2G_CONFIG_H
 
 enum input_type {
-    IN_TYPE_NONE,
-    IN_TYPE_KEY_OR_BTN,
-    IN_TYPE_REL,
-    IN_TYPE_ABS
+	IN_TYPE_NONE,
+	IN_TYPE_KEY_OR_BTN,
+	IN_TYPE_REL,
+	IN_TYPE_ABS
 };
 
 struct map_data {
-    enum input_type intype;
-    unsigned int input;
-    int reversed; // bool
+	enum input_type intype;
+	unsigned int input;
+	int reversed; // bool
 };
 
 struct controller_data {
-    char *name;
-    int vendor;
-    int product;
+	char *name;
+	int vendor;
+	int product;
 };
 
 ssize_t read_config(const char *path);
